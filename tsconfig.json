@@ -16,6 +16,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "portable-text": [
+        "dist/portable-text/portable-text",
+        "dist/portable-text"
+      ]
+    },
     "target": "es2017",
     "module": "es2020",
     "lib": [

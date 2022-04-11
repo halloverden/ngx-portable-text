@@ -1,0 +1,37 @@
+[
+  {
+    "_type": "block",
+    "_key": "da5f884c9804",
+    "style": "normal",
+    "children": [
+      {
+        "_type": "span",
+        "_key": "da5f884c98040",
+        "text": "Say hi to ",
+        "marks": []
+      },
+      {
+        "_type": "span",
+        "_key": "da5f884c98041",
+        "text": "Portable Text",
+        "marks": [
+          "strong",
+          "<markDefId>"
+        ]
+      },
+      {
+        "_type": "span",
+        "_key": "da5f884c98042",
+        "text": ".",
+        "marks": []
+      }
+    ],
+    "markDefs": [
+      {
+        "_type": "link",
+        "_key": "<markDefId>",
+        "href": "https://www.portabletext.org"
+      }
+    ]
+  }
+]
