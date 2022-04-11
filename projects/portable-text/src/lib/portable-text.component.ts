@@ -79,7 +79,7 @@ export class PortableTextComponent implements OnInit, OnChanges {
       case 'strong':
         return '<strong>' + markedChild + '</strong>';
       default:
-        throw Error('Unknown type'); // TODO: Handle unknown types
+        throw Error('Unknown mark type ' + mark); // TODO: Handle unknown types
     }
   }
 
@@ -95,7 +95,7 @@ export class PortableTextComponent implements OnInit, OnChanges {
       case 'link':
         return '<a href="' + markDef.href + '">' + markedChild + '</a>';
       default:
-        throw Error('Unknown type'); // TODO: Handle unknown types
+        throw Error('Unknown markDef type: ' + markDef._type); // TODO: Handle unknown types
     }
   }
 
@@ -173,7 +173,7 @@ export class PortableTextComponent implements OnInit, OnChanges {
           this.renderBlock(portableText);
           break;
         default:
-          throw Error('Unknown type'); // TODO: Handle unknown types
+          throw Error('Unknown type ' + portableText._type); // TODO: Handle unknown types
       }
     });
   }
