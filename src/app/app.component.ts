@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MockService} from './mock.service';
 import {tap} from 'rxjs';
 import {PortableTextInterface} from '../../projects/portable-text/src/lib/interfaces/portable-text.interface'
+import {
+  PortableTextConfigInterface
+} from '../../projects/portable-text/src/lib/interfaces/portable-text-config.interface';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +12,10 @@ import {PortableTextInterface} from '../../projects/portable-text/src/lib/interf
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  config: PortableTextConfigInterface = {
+    // TODO: Config
+  };
+
   portableTexts: PortableTextInterface[] = [];
 
   /**
