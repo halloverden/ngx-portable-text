@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomComponentComponent } from './custom-component.component';
+import { RenderCustomComponentComponent } from './render-custom-component.component';
 
 describe('CustomComponentComponent', () => {
-  let component: CustomComponentComponent;
-  let fixture: ComponentFixture<CustomComponentComponent>;
+  let component: RenderCustomComponentComponent;
+  let fixture: ComponentFixture<RenderCustomComponentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomComponentComponent ]
+      declarations: [ RenderCustomComponentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomComponentComponent);
+    fixture = TestBed.createComponent(RenderCustomComponentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

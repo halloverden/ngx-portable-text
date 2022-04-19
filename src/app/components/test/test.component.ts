@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {CustomComponent} from '../../../../projects/portable-text/src/lib/directives/custom.component';
 import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/interfaces/portable-text.interface';
 
 @Component({
@@ -7,8 +8,7 @@ import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/
   styleUrls: ['./test.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TestComponent {
-  @Input()
+export class TestComponent implements CustomComponent {
   portableText!: PortableTextInterface;
 
   /**
