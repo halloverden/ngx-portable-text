@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/interfaces/portable-text.interface';
 
 @Component({
   selector: 'app-test',
@@ -7,7 +8,13 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent {
+  @Input()
+  portableText!: PortableTextInterface;
+
+  /**
+   *
+   */
   test(): void {
-    console.log('Test');
+    console.log(this.portableText);
   }
 }

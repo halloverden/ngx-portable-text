@@ -1,5 +1,6 @@
 <ng-container *ngFor="let portableText of portableTexts">
   <!-- TODO: Check config before using default tags -->
   <p pTag *ngIf="portableText._type === 'block'" [portableText]="portableText" [config]="config">{{portableText._type}}</p>
+  <!-- TODO: Check config if HTMLElement or Component (Type) before using custom-component  -->
   <app-custom-component *ngIf="portableText._type !== 'block'" [portableText]="portableText" [config]="config"></app-custom-component>
 </ng-container>

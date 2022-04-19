@@ -15,9 +15,7 @@ import {TestComponent} from './components/test/test.component';
 })
 export class AppComponent implements OnInit {
   config: PortableTextConfigInterface = {
-    types: {
-      ['content.imageWithAltText']: TestComponent
-    }
+    types: new Map().set('content.imageWithAltText', TestComponent)
   };
 
   portableTexts: PortableTextInterface[] = [];
