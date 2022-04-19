@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { PortableTextComponent } from './portable-text.component';
+import {CommonModule} from '@angular/common';
+import {CustomComponentComponent} from './components/custom-component/custom-component.component';
+import {PTagComponent} from './components/p-tag/p-tag.component';
 
 @NgModule({
   declarations: [
-    PortableTextComponent
+    CustomComponentComponent,
+    PortableTextComponent,
+    PTagComponent
   ],
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   exports: [
     PortableTextComponent
   ]

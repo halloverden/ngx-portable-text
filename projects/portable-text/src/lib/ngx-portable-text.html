@@ -1,0 +1,4 @@
+<ng-container *ngFor="let portableText of portableTexts">
+  <p pTag *ngIf="portableText._type === 'block'" [portableText]="portableText">{{portableText._type}}</p>
+  <app-custom-component *ngIf="portableText._type !== 'block'" [portableText]="portableText"></app-custom-component>
+</ng-container>
