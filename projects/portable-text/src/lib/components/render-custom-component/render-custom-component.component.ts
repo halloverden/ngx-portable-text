@@ -4,7 +4,7 @@ import {PortableTextConfigInterface} from '../../interfaces/portable-text-config
 import {CustomComponent} from '../../directives/custom.component';
 
 @Component({
-  selector: 'app-render-custom-component', // TODO: Change name (package specific)
+  selector: 'app-render-custom-component',
   template: '',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
