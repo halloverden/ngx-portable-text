@@ -3,6 +3,7 @@ import {PortableTextInterface} from '../../interfaces/portable-text.interface';
 import {ChildInterface} from '../../interfaces/child.interface';
 import {MarkDefInterface} from '../../interfaces/mark-def.interface';
 import {PortableTextConfigInterface} from '../../interfaces/portable-text-config.interface';
+import {RenderService} from '../../services/render.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,7 +22,8 @@ export class PTagComponent implements OnInit {
   /**
    *
    */
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef,
+              private renderService: RenderService) { }
 
   /**
    *
@@ -106,7 +108,7 @@ export class PTagComponent implements OnInit {
    * @private
    */
   private renderContent(): void {
-    // TODO: Move blockContent to service and reuse in all content comps
+    // TODO: Move blockContent to this.renderService and reuse in all content comps
     let blockContent = '';
 
     this.portableText.children?.forEach((child: ChildInterface) => {
