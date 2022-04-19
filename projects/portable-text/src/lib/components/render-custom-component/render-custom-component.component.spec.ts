@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RenderCustomComponentComponent } from './render-custom-component.component';
 
-describe('CustomComponentComponent', () => {
+describe('RenderCustomComponentComponent', () => {
   let component: RenderCustomComponentComponent;
   let fixture: ComponentFixture<RenderCustomComponentComponent>;
 
