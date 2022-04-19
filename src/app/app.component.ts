@@ -9,7 +9,7 @@ import {TestComponent} from './components/test/test.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: '<ngx-portable-text [portableTexts]="portableTexts" [config]="config"></ngx-portable-text>',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

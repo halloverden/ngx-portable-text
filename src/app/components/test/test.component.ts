@@ -4,8 +4,8 @@ import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/
 
 @Component({
   selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss'],
+  template: '<button (click)="test()">CLICK ME!</button>',
+  styles: [':host{display: block}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent implements CustomComponent {
