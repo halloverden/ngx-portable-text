@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {PortableTextInterface} from './interfaces/portable-text.interface';
 import {PortableTextConfigInterface} from './interfaces/portable-text-config.interface';
 
 @Component({
   selector: 'ngx-portable-text',
-  templateUrl: './ngx-portable-text.html',
+  templateUrl: './portable-text.component.html',
   styles: [':host {display: block}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -24,10 +24,28 @@ import {PortableTextConfigInterface} from './interfaces/portable-text-config.int
  * @see https://github.com/otovo/python-portabletext-html
  * @see https://github.com/sanity-io/sanity-php#rendering-block-content
  */
-export class PortableTextComponent {
+export class PortableTextComponent implements OnInit {
   @Input()
-  config?: PortableTextConfigInterface;
+  config!: PortableTextConfigInterface;
 
   @Input()
   portableTexts: PortableTextInterface[] = [];
+
+  /**
+   *
+   */
+  ngOnInit(): void {
+    this.initConfig();
+  }
+
+  /**
+   *
+   * @private
+   */
+  private initConfig(): void {
+    // TODO: Init config
+    if (!this.config) {
+      this.config = {};
+    }
+  }
 }

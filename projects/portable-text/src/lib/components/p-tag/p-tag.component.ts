@@ -2,15 +2,19 @@ import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit} from '@an
 import {PortableTextInterface} from '../../interfaces/portable-text.interface';
 import {ChildInterface} from '../../interfaces/child.interface';
 import {MarkDefInterface} from '../../interfaces/mark-def.interface';
+import {PortableTextConfigInterface} from '../../interfaces/portable-text-config.interface';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[pTag]',
-  templateUrl: './p-tag.component.html',
-  styleUrls: ['./p-tag.component.scss'],
+  template: '',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PTagComponent implements OnInit {
+  @Input()
+  config!: PortableTextConfigInterface;
+
   @Input()
   portableText!: PortableTextInterface;
 
