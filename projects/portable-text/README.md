@@ -1,24 +1,23 @@
-# PortableText
+# NgxPortableText
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+Renders [Portable Text](https://github.com/portabletext/portabletext) (used by [Sanity.io](https://sanity,io)) and more.
 
-## Code scaffolding
+## Installation
+```
+npm i @halloverden/ngx-portable-text -S
+```
 
-Run `ng generate component component-name --project portable-text` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project portable-text`.
-> Note: Don't forget to add `--project portable-text` or else it will be added to the default project in your `angular.json` file. 
+## Usage
 
-## Build
+```html
+// whatever.html
+<ngx-portable-text [portableTexts]="portableTexts" [config]="config"></ngx-portable-text>
+```
 
-Run `ng build portable-text` to build the project. The build artifacts will be stored in the `dist/` directory.
+## License
+MIT © [Hallo Verden](https://github.com/halloverden)
 
-## Publishing
+## Change log
 
-After building your library with `ng build portable-text`, go to the dist folder `cd dist/portable-text` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test portable-text` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### 1.0.0
+- Initial version
