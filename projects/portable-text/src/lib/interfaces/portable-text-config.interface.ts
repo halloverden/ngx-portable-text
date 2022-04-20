@@ -1,11 +1,10 @@
-// TODO: Define
 import {Type} from '@angular/core';
 
 export interface PortableTextConfigInterface {
   types?: Map<string, Type<any>>,
-  marks?: {},
-  styles?: {},
-  list?: {},
-  listItem?: {},
-  hardBreak?: {}
+  marks?: any,
+  styles?: any,
+  list?: any,
+  listItem?: any,
+  hardBreak?: any
 }
