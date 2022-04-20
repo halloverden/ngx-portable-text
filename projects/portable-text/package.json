@@ -7,7 +7,7 @@
     "ngx",
     "portable text",
     "sanity",
-    "sanity.op"
+    "sanity.io"
   ],
   "homepage": "https://github.com/halloverden/ngx-portable-text/tree/test/new-architecture/projects/portable-text#readme",
   "bugs": {
