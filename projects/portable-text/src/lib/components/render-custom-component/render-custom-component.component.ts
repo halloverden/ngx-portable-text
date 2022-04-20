@@ -6,7 +6,7 @@ import {CustomComponent} from '../../directives/custom.component';
 @Component({
   selector: 'app-render-custom-component',
   template: '',
-  styles: [],
+  styles: [':host{display: none}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RenderCustomComponentComponent implements OnInit {
@@ -17,7 +17,7 @@ export class RenderCustomComponentComponent implements OnInit {
   portableText!: PortableTextInterface;
 
   /**
-   *
+   * Best would be if we somehow would be able to remove this component element from the DOM
    */
   constructor(private element: ViewContainerRef) { }
 

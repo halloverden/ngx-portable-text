@@ -1,6 +1,6 @@
 # NgxPortableText
 
-Renders [Portable Text](https://github.com/portabletext/portabletext) (used by [Sanity.io](https://sanity,io)) and more.
+Renders [Portable Text](https://github.com/portabletext/portabletext) (used by [Sanity.io](https://sanity.io)) and more.
 
 ## Installation
 ```
