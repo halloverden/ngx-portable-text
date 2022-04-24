@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
    *
    */
   ngOnInit(): void {
-    this.mockService.getMock('test.json').pipe(
+    this.mockService.getMock('simple.json').pipe(
       tap((portableTexts: PortableTextInterface[]) => {
         this.portableTexts = portableTexts;
         this.cdr.detectChanges();
