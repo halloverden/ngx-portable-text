@@ -26,7 +26,11 @@ import {PortableTextInterface} from '@halloverden/ngx-portable-text';
 })
 export class AppComponent {
   config: PortableTextInterface = {
-    types: new Map().set('customContent', TestComponent),
+    types: [{
+      type: 'customType',
+      component: TestComponent,
+      data: {myData: 'myData'}
+    }],
     marks: any,
     styles: any,
     list: any,
@@ -34,7 +38,7 @@ export class AppComponent {
     hardBreak: any
   };
 
-  portableTexts: PortableTextInterface[] = [];
+  portableTexts: PortableTextInterface[] = []; // Data from server / Sanity.io
 }
 ```
 
@@ -46,10 +50,11 @@ import {CustomComponent, PortableTextInterface} from '@halloverden/ngx-portable-
 
 export class TestComponent implements CustomComponent {
   portableText!: PortableTextInterface;
+  data?: any;
 }
 ```
 
-This Component will make sure your component gets the portable text data injected.
+This Component will make sure your component gets the portable text data injected, as well as an optional custom data.
 
 ## License
 MIT © [Hallo Verden](https://github.com/halloverden)
