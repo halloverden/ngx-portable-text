@@ -26,19 +26,29 @@ import {PortableTextInterface} from '@halloverden/ngx-portable-text';
 })
 export class AppComponent {
   config: PortableTextInterface = {
-    types: [{
-      type: 'customType',
-      component: TestComponent,
-      data: {myData: 'myData'}
-    }],
-    marks: any,
-    styles: any,
-    list: any,
-    listItem: any,
-    hardBreak: any
+    ...
   };
 
   portableTexts: PortableTextInterface[] = []; // Data from server / Sanity.io
+}
+```
+
+### Config
+
+```typescript
+export interface PortableTextConfigInterface {
+  types?: Array<PortableTextConfigTypeInterface>,
+  marks?: any,
+  styles?: any,
+  list?: any,
+  listItem?: any,
+  hardBreak?: any
+}
+
+export interface PortableTextConfigTypeInterface {
+  type: string;
+  component?: Type<any>;
+  data?: any;
 }
 ```
 
