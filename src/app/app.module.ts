@@ -4,10 +4,12 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PortableTextModule} from '../../projects/portable-text/src/lib/portable-text.module';
+import {TestComponent} from './components/test/test.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -16,6 +18,7 @@ import {PortableTextModule} from '../../projects/portable-text/src/lib/portable-
     PortableTextModule
   ],
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

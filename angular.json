@@ -138,5 +138,12 @@
       }
     }
   },
-  "defaultProject": "ngx-portable-text"
+  "defaultProject": "ngx-portable-text",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "changeDetection": "OnPush"
+      }
+    }
+  }
 }

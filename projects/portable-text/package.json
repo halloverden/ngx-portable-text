@@ -1,6 +1,28 @@
 {
   "name": "@halloverden/ngx-portable-text",
   "version": "1.0.0-rc.1",
+  "description": "",
+  "keywords": [
+    "angular",
+    "ngx",
+    "portable text",
+    "sanity",
+    "sanity.io"
+  ],
+  "homepage": "https://github.com/halloverden/ngx-portable-text/tree/test/new-architecture/projects/portable-text#readme",
+  "bugs": {
+    "url": "https://github.com/halloverden/ngx-portable-text/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Andreas Larssen",
+    "email": "andreas@halloverden.no"
+  },
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/halloverden/ngx-portable-text/tree/main/projects/portable-text"
+  },
   "peerDependencies": {
     "@angular/common": "^13.3.0",
     "@angular/core": "^13.3.0"
