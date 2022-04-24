@@ -1,6 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, Type, ViewContainerRef} from '@angular/core';
 import {PortableTextInterface} from '../../interfaces/portable-text.interface';
-import {PortableTextConfigInterface} from '../../interfaces/portable-text-config.interface';
+import {
+  PortableTextConfigInterface,
+  PortableTextConfigTypeInterface
+} from '../../interfaces/portable-text-config.interface';
 import {CustomComponent} from '../../directives/custom.component';
 
 @Component({
@@ -25,13 +28,31 @@ export class RenderCustomComponentComponent implements OnInit {
    *
    */
   ngOnInit(): void {
-    const t = this.config.types?.get(this.portableText._type);
+    const typeConfig = this.getTypeConfig(this.portableText._type);
 
-    if (undefined !== t) {
-      const test = this.element.createComponent<CustomComponent>(t);
+    if (typeConfig && typeConfig?.component) {
+      const test = this.element.createComponent<CustomComponent>(typeConfig.component);
       test.instance.portableText = this.portableText;
+      test.instance.data = typeConfig.data;
     } else {
       // TODO: Unknown type
     }
+  }
+
+  /**
+   *
+   * @param typeName
+   * @private
+   */
+  private getTypeConfig(typeName: string): PortableTextConfigTypeInterface|null {
+    let targetType = null;
+
+    this.config.types?.forEach((type) => {
+      if (type.type === typeName) {
+        targetType = type;
+      }
+    });
+
+    return targetType;
   }
 }

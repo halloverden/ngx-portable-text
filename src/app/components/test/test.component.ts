@@ -10,11 +10,13 @@ import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/
 })
 export class TestComponent implements CustomComponent {
   portableText!: PortableTextInterface;
+  data!: any;
 
   /**
    *
    */
   test(): void {
     console.log(this.portableText);
+    console.log(this.data);
   }
 }
