@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, Type, ViewContainerRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {PortableTextInterface} from '../../interfaces/portable-text.interface';
 import {
   PortableTextConfigInterface,
