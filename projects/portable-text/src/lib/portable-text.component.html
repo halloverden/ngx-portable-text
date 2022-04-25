@@ -1,7 +1,5 @@
 <ng-container *ngFor="let node of nodes">
-  <!-- TODO: Check config before using default tags -->
   <p pTag *ngIf="renderAsPTag(node)" [node]="asPortableTextBlock(node)" [config]="config"></p>
   <ul ulTag *ngIf="renderAsList(node)" [node]="asPortableTextListItemBlock(node)" [config]="config"></ul>
-  <!-- TODO: Check config if HTMLElement or Component (Type) before using custom-component -->
   <app-render-custom-component *ngIf="renderAsCustomComponent(node)" [node]="node" [config]="config"></app-render-custom-component>
 </ng-container>
