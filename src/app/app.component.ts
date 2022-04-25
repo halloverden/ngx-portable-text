@@ -1,28 +1,20 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MockService} from './mock.service';
 import {tap} from 'rxjs';
-import {PortableTextInterface} from '../../projects/portable-text/src/lib/interfaces/portable-text.interface'
 import {
   PortableTextConfigInterface
 } from '../../projects/portable-text/src/lib/interfaces/portable-text-config.interface';
-import {TestComponent} from './components/test/test.component';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Component({
   selector: 'app-root',
-  template: '<ngx-portable-text [portableTexts]="portableTexts" [config]="config"></ngx-portable-text>',
+  template: '<ngx-portable-text [nodes]="nodes" [config]="config"></ngx-portable-text>',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  config: PortableTextConfigInterface = {
-    types: [{
-      type: 'content.imageWithAltText',
-      component: TestComponent,
-      data: {test: 'test'}
-    }]
-  };
-
-  portableTexts: PortableTextInterface[] = [];
+  config: PortableTextConfigInterface = {};
+  nodes: ArbitraryTypedObject[] = [];
 
   /**
    *
@@ -37,8 +29,8 @@ export class AppComponent implements OnInit {
    */
   ngOnInit(): void {
     this.mockService.getMock('simple.json').pipe(
-      tap((portableTexts: PortableTextInterface[]) => {
-        this.portableTexts = portableTexts;
+      tap((nodes: ArbitraryTypedObject[]) => {
+        this.nodes = nodes;
         this.cdr.detectChanges();
       })
     ).subscribe();
