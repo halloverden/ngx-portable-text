@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CustomComponent} from '../../../../projects/portable-text/src/lib/directives/custom.component';
-import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/interfaces/portable-text.interface';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Component({
   selector: 'app-test',
@@ -9,7 +9,7 @@ import {PortableTextInterface} from '../../../../projects/portable-text/src/lib/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent implements CustomComponent {
-  portableText!: PortableTextInterface;
+  portableText!: ArbitraryTypedObject;
   data!: any;
 
   /**

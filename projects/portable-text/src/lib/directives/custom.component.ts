@@ -1,5 +1,5 @@
 import {Directive, Input} from '@angular/core';
-import {PortableTextInterface} from '../interfaces/portable-text.interface';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Directive()
 export abstract class CustomComponent {
@@ -7,5 +7,5 @@ export abstract class CustomComponent {
   data?: any;
 
   @Input()
-  portableText!: PortableTextInterface;
+  portableText!: ArbitraryTypedObject;
 }

@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {PortableTextInterface} from '../../projects/portable-text/src/lib/interfaces/portable-text.interface'
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ export class MockService {
   /**
    *
    */
-  getMock(mockFile: string): Observable<PortableTextInterface[]> {
+  getMock(mockFile: string): Observable<ArbitraryTypedObject[]> {
     return this.http.get('/assets/mocks/' + mockFile).pipe(
       map((response: any) => {
-        return response as PortableTextInterface[];
+        return response as ArbitraryTypedObject[];
       })
     );
   }

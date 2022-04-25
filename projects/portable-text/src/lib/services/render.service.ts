@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {MarkDefInterface} from '../interfaces/mark-def.interface';
-import {PortableTextInterface} from '../interfaces/portable-text.interface';
-import {ChildInterface} from '../interfaces/child.interface';
+import {PortableTextBlock, PortableTextMarkDefinition} from "@portabletext/types";
+import {ArbitraryTypedObject} from "@portabletext/types";
+import {PortableTextSpan} from "@portabletext/types/src/portableText";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ export class RenderService {
    *
    * @param portableText
    */
-  renderContent(portableText: PortableTextInterface): string {
+  renderContent(portableText: PortableTextBlock): string {
     let blockContent = '';
 
-    portableText.children?.forEach((child: ChildInterface) => {
+    portableText.children?.forEach((child: ArbitraryTypedObject | PortableTextSpan) => {
       if (child.marks.length !== 0) {
         blockContent += this.addMarks(portableText, child);
       } else {
@@ -32,7 +32,7 @@ export class RenderService {
    * @param child
    * @private
    */
-  private addMarks(portableText: PortableTextInterface, child: ChildInterface): string {
+  private addMarks(portableText: PortableTextBlock, child: ArbitraryTypedObject | PortableTextSpan): string {
     let markedChild = child.text;
 
     // TODO: Order? Link (and other types?) should be the outer element
@@ -54,10 +54,10 @@ export class RenderService {
    * @param mark
    * @private
    */
-  private getMarkDef(portableText: PortableTextInterface, mark: string): MarkDefInterface|null {
+  private getMarkDef(portableText: PortableTextBlock, mark: string): PortableTextMarkDefinition|null {
     let markDef = null;
 
-    portableText.markDefs?.forEach((targetMarkDef: MarkDefInterface) => {
+    portableText.markDefs?.forEach((targetMarkDef: PortableTextMarkDefinition) => {
       if (targetMarkDef._key === mark) {
         markDef = targetMarkDef;
       }
@@ -88,11 +88,11 @@ export class RenderService {
    * @param markedChild
    * @private
    */
-  private static addMarkDef(markDef: MarkDefInterface, markedChild: string): string {
+  private static addMarkDef(markDef: PortableTextMarkDefinition, markedChild: string): string {
     // TODO: Define html (string/function) somewhere and use it here
     switch (markDef._type) {
       case 'link':
-        return '<a href="' + markDef.href + '">' + markedChild + '</a>';
+        return '<a href="' + markDef['href'] + '">' + markedChild + '</a>';
       default:
         throw Error('Unknown markDef type: ' + markDef._type); // TODO: Handle unknown types
     }

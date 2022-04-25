@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {PortableTextInterface} from './interfaces/portable-text.interface';
 import {PortableTextConfigInterface} from './interfaces/portable-text-config.interface';
+import {isPortableTextBlock, isPortableTextListItemBlock} from '@portabletext/toolkit';
+import {ArbitraryTypedObject, PortableTextBlock, PortableTextListItemBlock} from "@portabletext/types";
 
 @Component({
   selector: 'ngx-portable-text',
@@ -29,13 +30,43 @@ export class PortableTextComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableTexts: PortableTextInterface[] = [];
+  portableTexts: PortableTextBlock[] | ArbitraryTypedObject[] = [];
+
+  /**
+   *
+   */
+  asPortableTextBlock(node: ArbitraryTypedObject): PortableTextBlock {
+    return node as PortableTextBlock;
+  }
+
+  /**
+   *
+   */
+  asPortableTextListItemBlock(node: ArbitraryTypedObject): PortableTextListItemBlock {
+    return node as PortableTextListItemBlock;
+  }
 
   /**
    *
    */
   ngOnInit(): void {
     this.initConfig();
+  }
+
+  /**
+   *
+   * @param node
+   */
+  renderAsList(node: any): boolean {
+    return isPortableTextListItemBlock(node);
+  }
+
+  /**
+   *
+   * @param node
+   */
+  renderAsPTag(node: any): boolean {
+    return isPortableTextBlock(node);
   }
 
   /**

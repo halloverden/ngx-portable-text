@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
-import {PortableTextInterface} from '../../interfaces/portable-text.interface';
 import {
   PortableTextConfigInterface,
   PortableTextConfigTypeInterface
 } from '../../interfaces/portable-text-config.interface';
 import {CustomComponent} from '../../directives/custom.component';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Component({
   selector: 'app-render-custom-component',
@@ -17,7 +17,7 @@ export class RenderCustomComponentComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableText!: PortableTextInterface;
+  portableText!: ArbitraryTypedObject;
 
   /**
    * Best would be if we somehow would be able to remove this component element from the DOM

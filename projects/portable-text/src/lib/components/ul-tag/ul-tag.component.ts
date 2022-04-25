@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {PortableTextConfigInterface} from "../../interfaces/portable-text-config.interface";
-import {PortableTextInterface} from "../../interfaces/portable-text.interface";
+import {PortableTextListItemBlock} from "@portabletext/types";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,5 +14,5 @@ export class UlTagComponent {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableText!: PortableTextInterface;
+  portableText!: PortableTextListItemBlock;
 }

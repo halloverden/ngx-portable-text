@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit} from '@angular/core';
-import {PortableTextInterface} from '../../interfaces/portable-text.interface';
 import {PortableTextConfigInterface} from '../../interfaces/portable-text-config.interface';
 import {RenderService} from '../../services/render.service';
+import {PortableTextBlock} from "@portabletext/types";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,7 +15,7 @@ export class PTagComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableText!: PortableTextInterface;
+  portableText!: PortableTextBlock;
 
   /**
    *

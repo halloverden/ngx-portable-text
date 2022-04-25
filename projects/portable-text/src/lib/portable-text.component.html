@@ -1,7 +1,7 @@
 <ng-container *ngFor="let portableText of portableTexts">
   <!-- TODO: Check config before using default tags -->
-  <p pTag *ngIf="portableText._type === 'block' && !portableText.listItem" [portableText]="portableText" [config]="config"></p>
-  <ul ulTag *ngIf="portableText._type === 'block' && portableText.listItem" [portableText]="portableText" [config]="config"></ul>
+  <p pTag *ngIf="renderAsPTag(portableText)" [portableText]="asPortableTextBlock(portableText)" [config]="config"></p>
+  <ul ulTag *ngIf="renderAsList(portableText)" [portableText]="asPortableTextListItemBlock(portableText)" [config]="config"></ul>
   <!-- TODO: Check config if HTMLElement or Component (Type) before using custom-component -->
   <app-render-custom-component *ngIf="portableText._type !== 'block'" [portableText]="portableText" [config]="config"></app-render-custom-component>
 </ng-container>

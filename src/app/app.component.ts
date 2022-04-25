@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MockService} from './mock.service';
 import {tap} from 'rxjs';
-import {PortableTextInterface} from '../../projects/portable-text/src/lib/interfaces/portable-text.interface'
 import {
   PortableTextConfigInterface
 } from '../../projects/portable-text/src/lib/interfaces/portable-text-config.interface';
-import {TestComponent} from './components/test/test.component';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Component({
   selector: 'app-root',
@@ -14,15 +13,8 @@ import {TestComponent} from './components/test/test.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  config: PortableTextConfigInterface = {
-    types: [{
-      type: 'content.imageWithAltText',
-      component: TestComponent,
-      data: {test: 'test'}
-    }]
-  };
-
-  portableTexts: PortableTextInterface[] = [];
+  config: PortableTextConfigInterface = {};
+  portableTexts: ArbitraryTypedObject[] = [];
 
   /**
    *
@@ -37,7 +29,7 @@ export class AppComponent implements OnInit {
    */
   ngOnInit(): void {
     this.mockService.getMock('simple.json').pipe(
-      tap((portableTexts: PortableTextInterface[]) => {
+      tap((portableTexts: ArbitraryTypedObject[]) => {
         this.portableTexts = portableTexts;
         this.cdr.detectChanges();
       })
