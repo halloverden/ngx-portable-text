@@ -57,7 +57,15 @@ export class PortableTextComponent implements OnInit {
    *
    * @param node
    */
-  renderAsList(node: any): boolean {
+  renderAsCustomComponent(node: ArbitraryTypedObject): boolean {
+    return node._type !== 'block';
+  }
+
+  /**
+   *
+   * @param node
+   */
+  renderAsList(node: ArbitraryTypedObject): boolean {
     return isPortableTextListItemBlock(node);
   }
 
@@ -65,7 +73,7 @@ export class PortableTextComponent implements OnInit {
    *
    * @param node
    */
-  renderAsPTag(node: any): boolean {
+  renderAsPTag(node: ArbitraryTypedObject): boolean {
     return isPortableTextBlock(node);
   }
 
