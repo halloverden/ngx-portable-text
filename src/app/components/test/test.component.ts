@@ -9,14 +9,14 @@ import {ArbitraryTypedObject} from "@portabletext/types";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent implements CustomComponent {
-  portableText!: ArbitraryTypedObject;
+  node!: ArbitraryTypedObject;
   data!: any;
 
   /**
    *
    */
   test(): void {
-    console.log(this.portableText);
+    console.log(this.node);
     console.log(this.data);
   }
 }

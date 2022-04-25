@@ -5,7 +5,7 @@ import {PortableTextListItemBlock} from "@portabletext/types";
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[ulTag]',
-  template: '<ul><li *ngFor="let child of portableText.children">{{child.text}}</li></ul>',
+  template: '<ul><li *ngFor="let child of node.children">{{child.text}}</li></ul>',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,5 +14,5 @@ export class UlTagComponent {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableText!: PortableTextListItemBlock;
+  node!: PortableTextListItemBlock;
 }

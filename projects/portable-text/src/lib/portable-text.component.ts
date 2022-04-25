@@ -30,7 +30,7 @@ export class PortableTextComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableTexts: PortableTextBlock[] | ArbitraryTypedObject[] = [];
+  nodes: ArbitraryTypedObject[] = [];
 
   /**
    *

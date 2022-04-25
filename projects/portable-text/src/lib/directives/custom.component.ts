@@ -7,5 +7,5 @@ export abstract class CustomComponent {
   data?: any;
 
   @Input()
-  portableText!: ArbitraryTypedObject;
+  node!: ArbitraryTypedObject;
 }

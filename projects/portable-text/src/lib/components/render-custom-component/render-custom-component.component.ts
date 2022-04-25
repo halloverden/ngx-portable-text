@@ -17,7 +17,7 @@ export class RenderCustomComponentComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableText!: ArbitraryTypedObject;
+  node!: ArbitraryTypedObject;
 
   /**
    * Best would be if we somehow would be able to remove this component element from the DOM
@@ -28,11 +28,11 @@ export class RenderCustomComponentComponent implements OnInit {
    *
    */
   ngOnInit(): void {
-    const typeConfig = this.getTypeConfig(this.portableText._type);
+    const typeConfig = this.getTypeConfig(this.node._type);
 
     if (typeConfig && typeConfig?.component) {
       const test = this.element.createComponent<CustomComponent>(typeConfig.component);
-      test.instance.portableText = this.portableText;
+      test.instance.node = this.node;
       test.instance.data = typeConfig.data;
     } else {
       // TODO: Unknown type

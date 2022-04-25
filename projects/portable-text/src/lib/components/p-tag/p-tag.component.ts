@@ -15,7 +15,7 @@ export class PTagComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  portableText!: PortableTextBlock;
+  node!: PortableTextBlock;
 
   /**
    *
@@ -27,6 +27,6 @@ export class PTagComponent implements OnInit {
    *
    */
   ngOnInit(): void {
-    this.element.nativeElement.innerHTML = this.renderService.renderContent(this.portableText);
+    this.element.nativeElement.innerHTML = this.renderService.renderContent(this.node);
   }
 }

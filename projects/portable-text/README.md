@@ -15,12 +15,13 @@ The config objects lets you define what components to use to render different "t
 [//]: # (TODO: Describe the other configs)
 
 [//]: # (TODO: Is this the correct import?)
+
 ```typescript
-import {PortableTextInterface} from '@halloverden/ngx-portable-text';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 @Component({
   selector: 'app-root',
-  template: '<ngx-portable-text [portableTexts]="portableTexts" [config]="config"></ngx-portable-text>',
+  template: '<ngx-portable-text [nodes]="nodes" [config]="config"></ngx-portable-text>',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -29,7 +30,7 @@ export class AppComponent {
     ...
   };
 
-  portableTexts: PortableTextInterface[] = []; // Data from server / Sanity.io
+  nodes: ArbitraryTypedObject[] = []; // Data from server / Sanity.io
 }
 ```
 
@@ -55,11 +56,13 @@ export interface PortableTextConfigTypeInterface {
 To use a custom component, implement the `CustomComponent` which ships with the package: 
 
 [//]: # (TODO: Is this the correct import?)
+
 ```typescript
-import {CustomComponent, PortableTextInterface} from '@halloverden/ngx-portable-text';
+import {CustomComponent} from '@halloverden/ngx-portable-text';
+import {ArbitraryTypedObject} from "@portabletext/types";
 
 export class TestComponent implements CustomComponent {
-  portableText!: PortableTextInterface;
+  node!: ArbitraryTypedObject;
   data?: any;
 }
 ```

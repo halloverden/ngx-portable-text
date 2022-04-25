@@ -10,14 +10,14 @@ export class RenderService {
   /**
    * TODO: Rename method?
    *
-   * @param portableText
+   * @param node
    */
-  renderContent(portableText: PortableTextBlock): string {
+  renderContent(node: PortableTextBlock): string {
     let blockContent = '';
 
-    portableText.children?.forEach((child: ArbitraryTypedObject | PortableTextSpan) => {
+    node.children?.forEach((child: ArbitraryTypedObject | PortableTextSpan) => {
       if (child.marks.length !== 0) {
-        blockContent += this.addMarks(portableText, child);
+        blockContent += this.addMarks(node, child);
       } else {
         blockContent += child.text;
       }
@@ -28,16 +28,16 @@ export class RenderService {
 
   /**
    *
-   * @param portableText
+   * @param node
    * @param child
    * @private
    */
-  private addMarks(portableText: PortableTextBlock, child: ArbitraryTypedObject | PortableTextSpan): string {
+  private addMarks(node: PortableTextBlock, child: ArbitraryTypedObject | PortableTextSpan): string {
     let markedChild = child.text;
 
     // TODO: Order? Link (and other types?) should be the outer element
     child.marks.forEach((mark: string) => {
-      const markDef = this.getMarkDef(portableText, mark);
+      const markDef = this.getMarkDef(node, mark);
       if (!markDef) {
         markedChild = RenderService.addMark(mark, markedChild);
       } else {
@@ -50,14 +50,14 @@ export class RenderService {
 
   /**
    *
-   * @param portableText
+   * @param node
    * @param mark
    * @private
    */
-  private getMarkDef(portableText: PortableTextBlock, mark: string): PortableTextMarkDefinition|null {
+  private getMarkDef(node: PortableTextBlock, mark: string): PortableTextMarkDefinition|null {
     let markDef = null;
 
-    portableText.markDefs?.forEach((targetMarkDef: PortableTextMarkDefinition) => {
+    node.markDefs?.forEach((targetMarkDef: PortableTextMarkDefinition) => {
       if (targetMarkDef._key === mark) {
         markDef = targetMarkDef;
       }
