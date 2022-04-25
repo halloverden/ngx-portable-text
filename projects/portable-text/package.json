@@ -28,6 +28,8 @@
     "@angular/core": "^13.3.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@portabletext/toolkit": "^1.0.5",
+    "@portabletext/types": "^1.0.3"
   }
 }
