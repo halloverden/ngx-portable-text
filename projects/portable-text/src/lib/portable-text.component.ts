@@ -74,9 +74,6 @@ export class PortableTextComponent implements OnInit {
    * @private
    */
   private initConfig(): void {
-    // TODO: Init config
-    if (!this.config) {
-      this.config = {};
-    }
+    this.config = this.config || {};
   }
 }
