@@ -15,8 +15,7 @@ export class ArbitraryTypedObjectHelper {
     console.log([...nodes]);
 
     while (nodes.length > 0) {
-      let cn = this.classifyNode(nodes);
-      console.log(cn);
+      n.push(this.classifyNode(nodes));
     }
 
     return n;
