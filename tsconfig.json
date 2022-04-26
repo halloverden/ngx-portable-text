@@ -17,6 +17,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@environments/*": ["src/environments/*"],
       "portable-text": [
         "dist/portable-text/portable-text",
         "dist/portable-text"

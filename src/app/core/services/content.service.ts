@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
 import { ArbitraryTypedObject } from '@portabletext/types';
 import sanityClientConstructor from '@sanity/client';
-import { environment } from '../../environments/environment';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
