@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core';
 import {PortableTextBlock, PortableTextMarkDefinition} from "@portabletext/types";
 import {ArbitraryTypedObject} from "@portabletext/types";
 import {PortableTextSpan} from "@portabletext/types/src/portableText";
+import strongMark from '../marks/strong.mark';
+import emphasisMark from '../marks/emphasis.mark';
+import underlineMark from '../marks/underline.mark';
+import strikeThroughMark from '../marks/strike-through.mark';
 
 @Injectable({
   providedIn: 'root'
@@ -73,12 +77,18 @@ export class RenderService {
    * @private
    */
   private static addMark(mark: string, markedChild: string): string {
-    // TODO: Define html (string/function) somewhere and use it here
     switch (mark) {
+      case 'em':
+        return emphasisMark(markedChild);
       case 'strong':
-        return '<strong>' + markedChild + '</strong>';
+        return strongMark(markedChild);
+      case 'strike-through':
+        return strikeThroughMark(markedChild);
+      case 'underline':
+        return underlineMark(markedChild);
       default:
-        throw Error('Unknown mark type ' + mark); // TODO: Handle unknown types
+        console.warn('Unknown mark type ' + mark);
+        return markedChild;
     }
   }
 
