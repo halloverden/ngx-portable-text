@@ -9,7 +9,7 @@ import { ContentService } from '@core/services/content.service';
 
 @Component({
   selector: 'app-root',
-  template: '<ngx-portable-text [nodes]="nodes" [config]="config"></ngx-portable-text>',
+  templateUrl: 'app.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
