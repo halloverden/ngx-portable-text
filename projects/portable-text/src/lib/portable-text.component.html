@@ -1,5 +1,7 @@
-<ng-container *ngFor="let node of nodes">
-  <p pTag *ngIf="renderAsPTag(node)" [node]="asPortableTextBlock(node)" [config]="config"></p>
-  <ul ulTag *ngIf="renderAsList(node)" [node]="asPortableTextListItemBlock(node)" [config]="config"></ul>
-  <app-render-custom-component *ngIf="renderAsCustomComponent(node)" [node]="node" [config]="config"></app-render-custom-component>
+<ng-container *ngFor="let cato of classifiedNodes">
+<!--  <p pTag *ngIf="renderAsPTag(node)" [node]="asPortableTextBlock(node)" [config]="config"></p>-->
+<!--  <ul ulTag *ngIf="renderAsList(node)" [node]="asPortableTextListItemBlock(node)" [config]="config"></ul>-->
+<!--  <app-render-custom-component *ngIf="renderAsCustomComponent(node)" [node]="node" [config]="config"></app-render-custom-component>-->
+<!--  <app-render-custom-component *ngIf="shouldRenderAsCustomComponent(cato)" [node]="cato" [config]="config"></app-render-custom-component>-->
+  <span *ngIf="shouldRenderAsHtmlElement(cato)" [outerHTML]="renderAsHtmlElement(cato)"></span>
 </ng-container>

@@ -1,7 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {PortableTextConfigInterface} from './interfaces/portable-text-config.interface';
-import {isPortableTextBlock, isPortableTextListItemBlock} from '@portabletext/toolkit';
 import {ArbitraryTypedObject, PortableTextBlock, PortableTextListItemBlock} from "@portabletext/types";
+import { HtmlRendererProviderService } from './services/html-renderer-provider.service';
+import { ArbitraryTypedObjectHelper, ClassifiedArbitraryTypedObject } from './helpers/arbitrary-typed-object.helper';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'ngx-portable-text',
@@ -25,12 +27,19 @@ import {ArbitraryTypedObject, PortableTextBlock, PortableTextListItemBlock} from
  * @see https://github.com/otovo/python-portabletext-html
  * @see https://github.com/sanity-io/sanity-php#rendering-block-content
  */
-export class PortableTextComponent implements OnInit {
+export class PortableTextComponent implements OnInit, OnChanges {
   @Input()
   config!: PortableTextConfigInterface;
 
   @Input()
   nodes: ArbitraryTypedObject[] = [];
+
+  classifiedNodes: ClassifiedArbitraryTypedObject[] = [];
+
+  constructor(private arbitraryTypedObjectHelper: ArbitraryTypedObjectHelper,
+              private htmlRendererService: HtmlRendererProviderService,
+              private sanitizer: DomSanitizer) {
+  }
 
   /**
    *
@@ -51,31 +60,72 @@ export class PortableTextComponent implements OnInit {
    */
   ngOnInit(): void {
     this.initConfig();
+    this.initNodes();
   }
 
   /**
    *
-   * @param node
+   * @param changes
    */
-  renderAsCustomComponent(node: ArbitraryTypedObject): boolean {
-    return node._type !== 'block';
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['nodes']) {
+      this.initNodes();
+    }
   }
 
   /**
    *
-   * @param node
+   * @param cato
    */
-  renderAsList(node: ArbitraryTypedObject): boolean {
-    return isPortableTextListItemBlock(node);
+  shouldRenderAsHtmlElement(cato: ClassifiedArbitraryTypedObject): boolean {
+    return this.htmlRendererService.getRenderer(cato) !== null;
   }
 
   /**
    *
-   * @param node
+   * @param cato
    */
-  renderAsPTag(node: ArbitraryTypedObject): boolean {
-    return isPortableTextBlock(node);
+  renderAsHtmlElement(cato: ClassifiedArbitraryTypedObject): SafeHtml {
+    const r = this.htmlRendererService.getRenderer(cato);
+
+    if (r) {
+      return this.sanitizer.bypassSecurityTrustHtml(r.render(cato).outerHTML);
+    }
+
+    return '';
   }
+
+  /**
+   *
+   * @param cato
+   */
+  shouldRenderAsCustomComponent(cato: ClassifiedArbitraryTypedObject): boolean {
+    return false;
+  }
+
+  // /**
+  //  *
+  //  * @param node
+  //  */
+  // renderAsCustomComponent(node: ArbitraryTypedObject): boolean {
+  //   return node._type !== 'block';
+  // }
+  //
+  // /**
+  //  *
+  //  * @param node
+  //  */
+  // renderAsList(node: ArbitraryTypedObject): boolean {
+  //   return isPortableTextListItemBlock(node);
+  // }
+  //
+  // /**
+  //  *
+  //  * @param node
+  //  */
+  // renderAsPTag(node: ArbitraryTypedObject): boolean {
+  //   return isPortableTextBlock(node);
+  // }
 
   /**
    *
@@ -83,5 +133,13 @@ export class PortableTextComponent implements OnInit {
    */
   private initConfig(): void {
     this.config = this.config || {};
+  }
+
+  /**
+   *
+   * @private
+   */
+  private initNodes(): void {
+    this.classifiedNodes = this.arbitraryTypedObjectHelper.classifyNodes(this.nodes);
   }
 }
