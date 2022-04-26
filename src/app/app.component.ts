@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {MockService} from './mock.service';
+import {MockService} from './services/mock.service';
 import {tap} from 'rxjs';
 import {
   PortableTextConfigInterface
 } from '../../projects/portable-text/src/lib/interfaces/portable-text-config.interface';
 import {ArbitraryTypedObject} from "@portabletext/types";
+import { ContentService } from './services/content.service';
 
 @Component({
   selector: 'app-root',
@@ -19,20 +20,29 @@ export class AppComponent implements OnInit {
   /**
    *
    * @param cdr
+   * @param contentService
    * @param mockService
    */
   constructor(private cdr: ChangeDetectorRef,
+              private contentService: ContentService,
               private mockService: MockService) {}
 
   /**
    *
    */
   ngOnInit(): void {
-    this.mockService.getMock('simple.json').pipe(
+    this.contentService.getSamorgLocalUnionIntroData().pipe(
       tap((nodes: ArbitraryTypedObject[]) => {
         this.nodes = nodes;
         this.cdr.detectChanges();
       })
     ).subscribe();
+
+    // this.mockService.getMock('simple.json').pipe(
+    //   tap((nodes: ArbitraryTypedObject[]) => {
+    //     this.nodes = nodes;
+    //     this.cdr.detectChanges();
+    //   })
+    // ).subscribe();
   }
 }

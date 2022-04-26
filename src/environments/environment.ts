@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  sanity: {
+    options: {
+      projectId: "3qsmh70q",
+      dataset: "development",
+      apiVersion: '2021-10-21',
+      useCdn: true
+    }
+  }
 };
 
 /*
