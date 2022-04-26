@@ -15,7 +15,7 @@ export class ListRenderer implements HtmlRendererInterface {
    */
   render(cato: ClassifiedArbitraryTypedObject): HTMLElement {
     switch (cato.type) {
-      case ClassifiedArbitraryTypedObjectType.UnorderedListItem:
+      case ClassifiedArbitraryTypedObjectType.UnorderedList:
         return this.renderUl(cato);
       default:
         return this.renderOl(cato);
@@ -27,7 +27,7 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   renderUl(cato: ClassifiedArbitraryTypedObject): HTMLUListElement {
-    const e = new HTMLUListElement();
+    const e = document.createElement('ul');
 
     this.renderLi(cato).forEach((el) => {
       e.appendChild(el);
@@ -41,7 +41,7 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   renderOl(cato: ClassifiedArbitraryTypedObject): HTMLOListElement {
-    const e = new HTMLOListElement();
+    const e = document.createElement('ol');
 
     this.renderLi(cato).forEach((el) => {
       e.appendChild(el);
@@ -58,8 +58,9 @@ export class ListRenderer implements HtmlRendererInterface {
     const e: HTMLLIElement[] = [];
 
     cato.nodes.forEach((node) => {
-      let li = new HTMLLIElement();
+      let li = document.createElement('li');
       li.innerText = node['text'];
+      console.log(li);
       e.push(li);
     });
 
@@ -71,6 +72,6 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param type
    */
   supports(type: ClassifiedArbitraryTypedObjectType): boolean {
-    return type === ClassifiedArbitraryTypedObjectType.UnorderedListItem || type === ClassifiedArbitraryTypedObjectType.OrderedListItem;
+    return type === ClassifiedArbitraryTypedObjectType.UnorderedList || type === ClassifiedArbitraryTypedObjectType.OrderedList;
   }
 }

@@ -14,7 +14,7 @@ export class ParagraphRenderer implements HtmlRendererInterface {
    * @param cato
    */
   render(cato: ClassifiedArbitraryTypedObject): HTMLParagraphElement {
-    const e = new HTMLParagraphElement();
+    const e = document.createElement('p');
     e.innerText = cato.nodes[0]['text'];
     return e;
   }
