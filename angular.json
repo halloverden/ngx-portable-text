@@ -70,6 +70,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-portable-text:build",
+            "ssl": true,
+            "sslCert": "config/crt/ngx-portable-text.halloverden.local-selfsigned.crt",
+            "sslKey": "config/crt/ngx-portable-text.halloverden.local-selfsigned.key"
+          },
           "configurations": {
             "production": {
               "browserTarget": "ngx-portable-text:build:production"
