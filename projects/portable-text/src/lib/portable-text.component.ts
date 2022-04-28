@@ -103,30 +103,6 @@ export class PortableTextComponent implements OnInit, OnChanges {
     return false;
   }
 
-  // /**
-  //  *
-  //  * @param node
-  //  */
-  // renderAsCustomComponent(node: ArbitraryTypedObject): boolean {
-  //   return node._type !== 'block';
-  // }
-  //
-  // /**
-  //  *
-  //  * @param node
-  //  */
-  // renderAsList(node: ArbitraryTypedObject): boolean {
-  //   return isPortableTextListItemBlock(node);
-  // }
-  //
-  // /**
-  //  *
-  //  * @param node
-  //  */
-  // renderAsPTag(node: ArbitraryTypedObject): boolean {
-  //   return isPortableTextBlock(node);
-  // }
-
   /**
    *
    * @private
