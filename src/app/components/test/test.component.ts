@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CustomComponent} from '../../../../projects/portable-text/src/lib/directives/custom.component';
-import {ArbitraryTypedObject} from "@portabletext/types";
+import { ClassifiedArbitraryTypedObject } from '../../../../projects/portable-text/src/lib/helpers/arbitrary-typed-object.helper';
 
 @Component({
   selector: 'app-test',
@@ -9,7 +9,7 @@ import {ArbitraryTypedObject} from "@portabletext/types";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent implements CustomComponent {
-  node!: ArbitraryTypedObject;
+  node!: ClassifiedArbitraryTypedObject;
   data!: any;
 
   /**
