@@ -12,8 +12,12 @@ import { StrikeThroughMarker } from './markers/strike-through.marker';
 import { StrongMarker } from './markers/strong.marker';
 import { UnderlineMarker } from './markers/underline.marker';
 import { ClassifierProviderService } from './services/classifier-provider.service';
-import { ParagraphClassifier } from './classifiers/paragraph.classifier';
 import { ListClassifier } from './classifiers/list.classifier';
+import { StylerProviderService } from './services/styler-provider.service';
+import { HeadingStyler } from './stylers/heading.styler';
+import { ImageClassifier } from './classifiers/image.classifier';
+import { TextClassifier } from './classifiers/text.classifier';
+import { NormalStyler } from './stylers/normal.styler';
 
 @NgModule({
   declarations: [
@@ -27,8 +31,9 @@ import { ListClassifier } from './classifiers/list.classifier';
     PortableTextComponent
   ],
   providers: [
+    {provide: 'ClassifierInterface', useClass: ImageClassifier, multi: true},
     {provide: 'ClassifierInterface', useClass: ListClassifier, multi: true},
-    {provide: 'ClassifierInterface', useClass: ParagraphClassifier, multi: true},
+    {provide: 'ClassifierInterface', useClass: TextClassifier, multi: true},
     ClassifierProviderService,
     {provide: 'HtmlRendererInterface', useClass: ListRenderer, multi: true},
     {provide: 'HtmlRendererInterface', useClass: ParagraphRenderer, multi: true},
@@ -38,7 +43,10 @@ import { ListClassifier } from './classifiers/list.classifier';
     {provide: 'MarkerInterface', useClass: StrikeThroughMarker, multi: true},
     {provide: 'MarkerInterface', useClass: StrongMarker, multi: true},
     {provide: 'MarkerInterface', useClass: UnderlineMarker, multi: true},
-    MarkerProviderService
+    MarkerProviderService,
+    {provide: 'StylerInterface', useClass: HeadingStyler, multi: true},
+    {provide: 'StylerInterface', useClass: NormalStyler, multi: true},
+    StylerProviderService
   ]
 })
 export class PortableTextModule { }

@@ -9,6 +9,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ListRenderer implements HtmlRendererInterface {
+  constructor() {
+  }
+
+  /**
+   *
+   */
+  getPriority(): number {
+    return 0;
+  }
+
   /**
    *
    * @param cato
@@ -27,9 +37,10 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   renderUl(cato: ClassifiedArbitraryTypedObject): HTMLUListElement {
+    console.log('ul');
     const e = document.createElement('ul');
 
-    this.renderLi(cato).forEach((el) => {
+    this.renderLi(cato.classifiedNodes).forEach((el) => {
       e.appendChild(el);
     });
 
@@ -41,9 +52,10 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   renderOl(cato: ClassifiedArbitraryTypedObject): HTMLOListElement {
+    console.log('ol');
     const e = document.createElement('ol');
 
-    this.renderLi(cato).forEach((el) => {
+    this.renderLi(cato.classifiedNodes).forEach((el) => {
       e.appendChild(el);
     });
 
@@ -52,15 +64,21 @@ export class ListRenderer implements HtmlRendererInterface {
 
   /**
    *
-   * @param cato
+   * @param catos
    */
-  renderLi(cato: ClassifiedArbitraryTypedObject): HTMLLIElement[] {
+  renderLi(catos: ClassifiedArbitraryTypedObject[]): HTMLLIElement[] {
     const e: HTMLLIElement[] = [];
 
-    cato.nodes.forEach((node) => {
+    catos.forEach((cn) => {
+      console.log(cn);
       let li = document.createElement('li');
-      li.innerText = node['text'];
-      console.log(li);
+
+      if (cn.classifiedNodes.length > 0) {
+        li.innerHTML = this.render(cn).outerHTML;
+      } else {
+        li.innerText = cn.nodes[0]['children'][0]['text'];
+      }
+
       e.push(li);
     });
 

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ParagraphClassifier implements ClassifierInterface {
+export class TextClassifier implements ClassifierInterface {
   /**
    *
    * @param nodes
@@ -21,9 +21,16 @@ export class ParagraphClassifier implements ClassifierInterface {
 
   /**
    *
+   */
+  getPriority(): number {
+    return 0;
+  }
+
+  /**
+   *
    * @param node
    */
   supports(node: ArbitraryTypedObject): boolean {
-    return node['_type'] === 'block' && node['style'] === 'normal' && !node['listItem'];
+    return node['_type'] === 'block' && !node['listItem'];
   }
 }

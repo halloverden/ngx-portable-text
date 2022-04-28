@@ -5,5 +5,6 @@ import {
 
 export interface HtmlRendererInterface {
   render(cato: ClassifiedArbitraryTypedObject): HTMLElement;
+  getPriority(): number;
   supports(type: ClassifiedArbitraryTypedObjectType): boolean;
 }

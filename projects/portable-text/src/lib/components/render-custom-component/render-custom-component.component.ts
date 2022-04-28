@@ -4,7 +4,7 @@ import {
   PortableTextConfigTypeInterface
 } from '../../interfaces/portable-text-config.interface';
 import {CustomComponent} from '../../directives/custom.component';
-import {ArbitraryTypedObject} from "@portabletext/types";
+import { ClassifiedArbitraryTypedObject } from '../../helpers/arbitrary-typed-object.helper';
 
 @Component({
   selector: 'app-render-custom-component',
@@ -17,7 +17,7 @@ export class RenderCustomComponentComponent implements OnInit {
   config!: PortableTextConfigInterface;
 
   @Input()
-  node!: ArbitraryTypedObject;
+  node!: ClassifiedArbitraryTypedObject;
 
   /**
    * Best would be if we somehow would be able to remove this component element from the DOM
@@ -28,7 +28,7 @@ export class RenderCustomComponentComponent implements OnInit {
    *
    */
   ngOnInit(): void {
-    const typeConfig = this.getTypeConfig(this.node._type);
+    const typeConfig = this.getTypeConfig(this.node.type);
 
     if (typeConfig && typeConfig?.component) {
       const test = this.element.createComponent<CustomComponent>(typeConfig.component);
@@ -47,7 +47,7 @@ export class RenderCustomComponentComponent implements OnInit {
   private getTypeConfig(typeName: string): PortableTextConfigTypeInterface|null {
     let targetType = null;
 
-    this.config.types?.forEach((type) => {
+    this.config.overrides?.types?.forEach((type) => {
       if (type.type === typeName) {
         targetType = type;
       }

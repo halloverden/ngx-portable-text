@@ -14,6 +14,13 @@ export class ParagraphRenderer implements HtmlRendererInterface {
 
   /**
    *
+   */
+  getPriority(): number {
+    return 0;
+  }
+
+  /**
+   *
    * @param cato
    */
   render(cato: ClassifiedArbitraryTypedObject): HTMLParagraphElement {

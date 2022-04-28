@@ -10,8 +10,7 @@ export class ClassifierProviderService {
    *
    * @param classifiers
    */
-  constructor(@Inject('ClassifierInterface') private classifiers: ClassifierInterface[]) {
-  }
+  constructor(@Inject('ClassifierInterface') private classifiers: ClassifierInterface[]) {}
 
   /**
    *

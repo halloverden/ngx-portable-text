@@ -1,5 +1,5 @@
 import {Directive, Input} from '@angular/core';
-import {ArbitraryTypedObject} from "@portabletext/types";
+import { ClassifiedArbitraryTypedObject } from '../helpers/arbitrary-typed-object.helper';
 
 @Directive()
 export abstract class CustomComponent {
@@ -7,5 +7,5 @@ export abstract class CustomComponent {
   data?: any;
 
   @Input()
-  node!: ArbitraryTypedObject;
+  node!: ClassifiedArbitraryTypedObject;
 }

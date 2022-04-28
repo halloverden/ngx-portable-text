@@ -21,7 +21,7 @@ export class HtmlRendererProviderService {
     let s: HtmlRendererInterface | null = null;
 
     this.renderers.forEach((renderer) => {
-      if (renderer.supports(cato.type) && null === s) {
+      if (renderer.supports(cato.type) && (null === s || s.getPriority() < renderer.getPriority())) {
         s = renderer;
       }
     });

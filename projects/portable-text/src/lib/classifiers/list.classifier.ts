@@ -17,10 +17,24 @@ export class ListClassifier implements ClassifierInterface {
   classify(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject {
     const firstNode = nodes[0];
 
-    if (this.isOrderedList(firstNode)) {
-      return this.classifyOrderedList(nodes);
-    } else if (this.isUnorderedList(firstNode)) {
-      return this.classifyUnorderedList(nodes);
+    if (this.isListNode(firstNode)) {
+      const firstNode = nodes[0];
+
+      let l = new ClassifiedArbitraryTypedObject();
+
+      if (this.isOrderedListNode(firstNode['listItem'])) {
+        l.type = ClassifiedArbitraryTypedObjectType.OrderedList;
+      } else if (this.isUnorderedListNode(firstNode['listItem'])) {
+        l.type = ClassifiedArbitraryTypedObjectType.UnorderedList;
+      }
+
+      let listItems = this.classifyListItems(this.getConsecutiveListItems(nodes));
+
+      listItems.forEach((listItem) => {
+        l.addClassifiedNode(listItem);
+      });
+
+      return l;
     }
 
     throw Error('Unable to classify node: ' + firstNode);
@@ -28,86 +42,114 @@ export class ListClassifier implements ClassifierInterface {
 
   /**
    *
+   */
+  getPriority(): number {
+    return 0;
+  }
+
+  /**
+   *
    * @param node
    */
   supports(node: ArbitraryTypedObject): boolean {
-    return this.isOrderedList(node) || this.isUnorderedList(node);
+    return this.isListNode(node);
   }
 
   /**
    *
    * @param node
    */
-  isOrderedList(node: ArbitraryTypedObject): boolean {
-    return node['listItem'] && node['listItem'] === 'number';
+  isListNode(node: ArbitraryTypedObject): boolean {
+    return node && !!node['listItem'];
   }
 
   /**
    *
-   * @param node
+   * @param listItemType
    */
-  isUnorderedList(node: ArbitraryTypedObject): boolean {
-    return node['listItem'] && node['listItem'] === 'bullet';
+  isOrderedListNode(listItemType: string): boolean {
+    return listItemType === 'number';
   }
 
   /**
    *
-   * @param nodes
-   * TODO: Handle levels
+   * @param listItemType
    */
-  classifyOrderedList(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject {
-    const firstNode = nodes.splice(0, 1)[0];
-
-    let n = (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.OrderedList));
-    n.addClassifiedNode((new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.OrderedListItem)).addNode(firstNode))
-
-    let child = this.getListNodes(nodes, firstNode);
-
-    while (null !== child) {
-      n.addClassifiedNode((new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.OrderedListItem)).addNode(child));
-      child = this.getListNodes(nodes, child);
-    }
-
-    return n;
+  isUnorderedListNode(listItemType: string): boolean {
+    return listItemType === 'bullet';
   }
 
   /**
    *
    * @param nodes
-   * TODO: Handle levels
    */
-  classifyUnorderedList(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject {
-    const firstNode = nodes.splice(0, 1)[0];
-
-    let n = (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.UnorderedList));
-    n.addClassifiedNode((new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.UnorderedListItem)).addNode(firstNode))
-
-    let child = this.getListNodes(nodes, firstNode);
-
-    while (null !== child) {
-      n.addClassifiedNode((new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.UnorderedListItem)).addNode(child));
-      child = this.getListNodes(nodes, child);
-    }
-
-    return n;
-  }
-
-  /**
-   *
-   * @param nodes
-   * @param previousNode
-   */
-  getListNodes(nodes: ArbitraryTypedObject[], previousNode: ArbitraryTypedObject): ArbitraryTypedObject | null {
+  classifyListItems(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject[] {
     let nextNode = nodes[0];
+    let previousNode = null;
+    const n = [];
 
-    if (!nextNode) {
-      return null;
+    do {
+      let classifiedListNode = (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.ListItem)).addNode(nextNode);
+      n.push(classifiedListNode);
+      previousNode = nodes.splice(0, 1)[0];
+      nextNode = nodes[0];
+
+      if (this.isListNode(nextNode)) {
+        // console.log('blep');
+      }
+
+      if (!this.isListNode(nextNode)) {
+        break;
+      }
+
+      if (this.isNextLevel(nextNode, previousNode)) {
+        // console.log('next level shizzle', nextNode, previousNode);
+        classifiedListNode.addClassifiedNode(this.classify(nodes));
+      } else if (this.isPreviousLevel(nextNode, previousNode)) {
+      }
+    } while (this.isListNode(nextNode) && this.isSameType(nextNode, previousNode))
+
+    console.log('n', n);
+
+    return n;
+  }
+
+  /**
+   *
+   * @param nodes
+   */
+  getConsecutiveListItems(nodes: ArbitraryTypedObject[]): ArbitraryTypedObject[] {
+    const c: ArbitraryTypedObject[] = [];
+    let currentItem = nodes[0];
+    let previousItem = null;
+
+    while (this.isListNode(currentItem) && (null === previousItem || this.isSameType(currentItem, previousItem))) {
+      c.push(currentItem);
+      previousItem = nodes.splice(0, 1)[0];
+      currentItem = nodes[0];
     }
 
-    if (nextNode['listItem'] && nextNode['listItem'] === previousNode['listItem'] && nextNode['level'] >= previousNode['level']) {
-      return nodes.splice(0, 1)[0];
-    }
+    return c;
+  }
 
-    return null;
+  /**
+   *
+   */
+  isNextLevel(nextNode: ArbitraryTypedObject, previousNode: ArbitraryTypedObject): boolean {
+    return nextNode['level'] > previousNode['level'] && this.isSameType(nextNode, previousNode);
+  }
+
+  /**
+   *
+   */
+  isPreviousLevel(nextNode: ArbitraryTypedObject, previousNode: ArbitraryTypedObject): boolean {
+    return nextNode['level'] < previousNode['level'] && this.isSameType(nextNode, previousNode);
+  }
+
+  /**
+   *
+   */
+  isSameType(nextNode: ArbitraryTypedObject, previousNode: ArbitraryTypedObject): boolean {
+    return nextNode['listItem'] === previousNode['listItem'];
   }
 }

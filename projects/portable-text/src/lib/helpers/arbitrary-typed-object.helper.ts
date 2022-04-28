@@ -36,12 +36,20 @@ export class ArbitraryTypedObjectHelper {
  *
  */
 export class ClassifiedArbitraryTypedObject {
-  type: ClassifiedArbitraryTypedObjectType;
+  private _type: ClassifiedArbitraryTypedObjectType;
   nodes: ArbitraryTypedObject[] = [];
   classifiedNodes: ClassifiedArbitraryTypedObject[] = [];
 
   constructor(type?: ClassifiedArbitraryTypedObjectType) {
-    this.type = type || ClassifiedArbitraryTypedObjectType.Unknown;
+    this._type = type || ClassifiedArbitraryTypedObjectType.Unknown;
+  }
+
+  get type(): ClassifiedArbitraryTypedObjectType {
+    return this._type;
+  }
+
+  set type(value: ClassifiedArbitraryTypedObjectType) {
+    this._type = value;
   }
 
   addNode(node: ArbitraryTypedObject): ClassifiedArbitraryTypedObject {
@@ -56,10 +64,11 @@ export class ClassifiedArbitraryTypedObject {
 }
 
 export enum ClassifiedArbitraryTypedObjectType {
+  Heading = 'Heading',
+  Image = 'Image',
+  ListItem = 'ListItem',
   OrderedList = 'OrderedList',
-  OrderedListItem = 'OrderedListItem',
   Paragraph = 'Paragraph',
   Unknown = 'Unknown',
-  UnorderedList = 'UnorderedList',
-  UnorderedListItem = 'UnorderedListItem'
+  UnorderedList = 'UnorderedList'
 }

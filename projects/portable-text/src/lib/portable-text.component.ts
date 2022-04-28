@@ -116,6 +116,6 @@ export class PortableTextComponent implements OnInit, OnChanges {
    * @private
    */
   private initNodes(): void {
-    this.classifiedNodes = this.arbitraryTypedObjectHelper.classifyNodes(this.nodes);
+    this.classifiedNodes = this.arbitraryTypedObjectHelper.classifyNodes([...this.nodes]);
   }
 }

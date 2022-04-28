@@ -6,6 +6,6 @@ import { ClassifiedArbitraryTypedObject, } from '../helpers/arbitrary-typed-obje
  */
 export interface ClassifierInterface {
   classify(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject
-
+  getPriority(): number;
   supports(node: ArbitraryTypedObject): boolean;
 }
