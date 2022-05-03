@@ -37,8 +37,8 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   renderUl(cato: ClassifiedArbitraryTypedObject): HTMLUListElement {
-    console.log('ul');
     const e = document.createElement('ul');
+    cato.setDomNode(e);
 
     this.renderLi(cato.classifiedNodes).forEach((el) => {
       e.appendChild(el);
@@ -52,8 +52,8 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   renderOl(cato: ClassifiedArbitraryTypedObject): HTMLOListElement {
-    console.log('ol');
     const e = document.createElement('ol');
+    cato.setDomNode(e);
 
     this.renderLi(cato.classifiedNodes).forEach((el) => {
       e.appendChild(el);
@@ -70,19 +70,29 @@ export class ListRenderer implements HtmlRendererInterface {
     const e: HTMLLIElement[] = [];
 
     catos.forEach((cn) => {
-      console.log(cn);
       let li = document.createElement('li');
+      cn.setDomNode(li);
+      let span = document.createElement('span');
+      span.innerHTML = cn.nodes[0]['children'][0]['text'];
 
-      if (cn.classifiedNodes.length > 0) {
-        li.innerHTML = this.render(cn).outerHTML;
+      if (cn.classifiedNodes.length === 1 && this.isList(cn.classifiedNodes[0])) {
+        li.innerHTML = span.outerHTML + this.render(cn.classifiedNodes[0]).outerHTML;
       } else {
-        li.innerText = cn.nodes[0]['children'][0]['text'];
+        li.innerHTML = span.outerHTML;
       }
 
       e.push(li);
     });
 
     return e;
+  }
+
+  /**
+   *
+   * @param cato
+   */
+  isList(cato: ClassifiedArbitraryTypedObject): boolean {
+    return cato.type === ClassifiedArbitraryTypedObjectType.UnorderedList || cato.type === ClassifiedArbitraryTypedObjectType.OrderedList;
   }
 
   /**
