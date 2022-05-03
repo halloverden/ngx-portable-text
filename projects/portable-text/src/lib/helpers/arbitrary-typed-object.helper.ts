@@ -39,6 +39,8 @@ export class ClassifiedArbitraryTypedObject {
   private _type: ClassifiedArbitraryTypedObjectType;
   nodes: ArbitraryTypedObject[] = [];
   classifiedNodes: ClassifiedArbitraryTypedObject[] = [];
+  private _node: ArbitraryTypedObject | null = null;
+  private _domNode: HTMLElement | null = null;
 
   constructor(type?: ClassifiedArbitraryTypedObjectType) {
     this._type = type || ClassifiedArbitraryTypedObjectType.Unknown;
@@ -59,6 +61,29 @@ export class ClassifiedArbitraryTypedObject {
 
   addClassifiedNode(node: ClassifiedArbitraryTypedObject): ClassifiedArbitraryTypedObject {
     this.classifiedNodes.push(node);
+    return this;
+  }
+
+  setClassifiedNodes(nodes: ClassifiedArbitraryTypedObject[]): ClassifiedArbitraryTypedObject {
+    this.classifiedNodes = nodes;
+    return this;
+  }
+
+  get node(): ArbitraryTypedObject | null {
+    return this._node;
+  }
+
+  setNode(value: ArbitraryTypedObject | null): ClassifiedArbitraryTypedObject {
+    this._node = value;
+    return this;
+  }
+
+  get domNode(): HTMLElement | null {
+    return this._domNode;
+  }
+
+  setDomNode(value: HTMLElement | null): ClassifiedArbitraryTypedObject {
+    this._domNode = value;
     return this;
   }
 }
