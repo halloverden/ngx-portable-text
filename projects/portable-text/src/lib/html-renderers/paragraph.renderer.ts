@@ -73,6 +73,6 @@ export class ParagraphRenderer implements HtmlRendererInterface {
    * @param type
    */
   supports(type: ClassifiedArbitraryTypedObjectType): boolean {
-    return type === ClassifiedArbitraryTypedObjectType.Paragraph;
+    return type === ClassifiedArbitraryTypedObjectType.paragraph;
   }
 }

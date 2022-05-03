@@ -25,7 +25,7 @@ export class ListRenderer implements HtmlRendererInterface {
    */
   render(cato: ClassifiedArbitraryTypedObject): HTMLElement {
     switch (cato.type) {
-      case ClassifiedArbitraryTypedObjectType.UnorderedList:
+      case ClassifiedArbitraryTypedObjectType.unorderedList:
         return this.renderUl(cato);
       default:
         return this.renderOl(cato);
@@ -92,7 +92,7 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param cato
    */
   isList(cato: ClassifiedArbitraryTypedObject): boolean {
-    return cato.type === ClassifiedArbitraryTypedObjectType.UnorderedList || cato.type === ClassifiedArbitraryTypedObjectType.OrderedList;
+    return cato.type === ClassifiedArbitraryTypedObjectType.unorderedList || cato.type === ClassifiedArbitraryTypedObjectType.orderedList;
   }
 
   /**
@@ -100,6 +100,6 @@ export class ListRenderer implements HtmlRendererInterface {
    * @param type
    */
   supports(type: ClassifiedArbitraryTypedObjectType): boolean {
-    return type === ClassifiedArbitraryTypedObjectType.UnorderedList || type === ClassifiedArbitraryTypedObjectType.OrderedList;
+    return type === ClassifiedArbitraryTypedObjectType.unorderedList || type === ClassifiedArbitraryTypedObjectType.orderedList;
   }
 }

@@ -13,8 +13,6 @@ export class ArbitraryTypedObjectHelper {
   classifyNodes(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject[] {
     const n: ClassifiedArbitraryTypedObject[] = [];
 
-    console.log([...nodes]);
-
     while (nodes.length > 0) {
       let classifier = this.classifierProvider.getClassifier(nodes[0]);
 
@@ -43,7 +41,7 @@ export class ClassifiedArbitraryTypedObject {
   private _domNode: HTMLElement | null = null;
 
   constructor(type?: ClassifiedArbitraryTypedObjectType) {
-    this._type = type || ClassifiedArbitraryTypedObjectType.Unknown;
+    this._type = type || ClassifiedArbitraryTypedObjectType.unknown;
   }
 
   get type(): ClassifiedArbitraryTypedObjectType {
@@ -89,11 +87,20 @@ export class ClassifiedArbitraryTypedObject {
 }
 
 export enum ClassifiedArbitraryTypedObjectType {
-  Heading = 'Heading',
-  Image = 'Image',
-  ListItem = 'ListItem',
-  OrderedList = 'OrderedList',
-  Paragraph = 'Paragraph',
-  Unknown = 'Unknown',
-  UnorderedList = 'UnorderedList'
+  heading = 'heading',
+  image = 'image',
+  listItem = 'listItem',
+  orderedList = 'orderedList',
+  paragraph = 'paragraph',
+  unknown = 'unknown',
+  unorderedList = 'unorderedList'
+}
+
+export type CatoRenderFunction = {
+  catoRenderFunctionSignatureProp?: string;
+  (cato: ClassifiedArbitraryTypedObject): HTMLElement | string;
+};
+
+export function isCatoRenderFunction(tbd: any): tbd is CatoRenderFunction {
+  return tbd && tbd.hasOwnProperty('catoRenderFunctionSignatureProp');
 }

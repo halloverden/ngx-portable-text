@@ -1,11 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {MockService} from '@core/services/mock.service';
-import {tap} from 'rxjs';
-import {
-  PortableTextConfigInterface
-} from '../../projects/portable-text/src/lib/interfaces/portable-text-config.interface';
-import {ArbitraryTypedObject} from "@portabletext/types";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MockService } from '@core/services/mock.service';
+import { tap } from 'rxjs';
+import { PortableTextConfigInterface } from '../../projects/portable-text/src/lib/interfaces/portable-text-config.interface';
+import { ArbitraryTypedObject } from "@portabletext/types";
 import { ContentService } from '@core/services/content.service';
+import { ClassifiedArbitraryTypedObject } from '../../projects/portable-text/src/lib/helpers/arbitrary-typed-object.helper';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,14 @@ import { ContentService } from '@core/services/content.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  config: PortableTextConfigInterface = {};
+  config: PortableTextConfigInterface = {
+    overrides: {
+      orderedList: (cato: ClassifiedArbitraryTypedObject) => {
+        console.log(cato);
+        return 'wef';
+      }
+    }
+  };
   nodes: ArbitraryTypedObject[] = [];
 
   /**
@@ -25,7 +31,8 @@ export class AppComponent implements OnInit {
    */
   constructor(private cdr: ChangeDetectorRef,
               private contentService: ContentService,
-              private mockService: MockService) {}
+              private mockService: MockService) {
+  }
 
   /**
    *

@@ -1,8 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import {PortableTextConfigInterface} from './interfaces/portable-text-config.interface';
-import {ArbitraryTypedObject, PortableTextBlock, PortableTextListItemBlock} from "@portabletext/types";
+import {
+  PortableTextConfigInterface,
+  PortableTextConfigInterfaceOverrides
+} from './interfaces/portable-text-config.interface';
+import { ArbitraryTypedObject, PortableTextBlock } from "@portabletext/types";
 import { HtmlRendererProviderService } from './services/html-renderer-provider.service';
-import { ArbitraryTypedObjectHelper, ClassifiedArbitraryTypedObject } from './helpers/arbitrary-typed-object.helper';
+import {
+  ArbitraryTypedObjectHelper,
+  CatoRenderFunction,
+  ClassifiedArbitraryTypedObject
+} from './helpers/arbitrary-typed-object.helper';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -51,16 +58,11 @@ export class PortableTextComponent implements OnInit, OnChanges {
   /**
    *
    */
-  asPortableTextListItemBlock(node: ArbitraryTypedObject): PortableTextListItemBlock {
-    return node as PortableTextListItemBlock;
-  }
-
-  /**
-   *
-   */
   ngOnInit(): void {
     this.initConfig();
     this.initNodes();
+
+    console.log(this.config);
   }
 
   /**
@@ -86,13 +88,55 @@ export class PortableTextComponent implements OnInit, OnChanges {
    * @param cato
    */
   renderAsHtmlElement(cato: ClassifiedArbitraryTypedObject): SafeHtml {
-    const r = this.htmlRendererService.getRenderer(cato);
+    let r = this.htmlRendererService.getRenderer(cato);
+
+    if (this.hasOverride(cato)) {
+      return this.getOverride(cato)(cato);
+    }
 
     if (r) {
       return this.sanitizer.bypassSecurityTrustHtml(r.render(cato).outerHTML);
     }
 
     return '';
+  }
+
+  /**
+   *
+   * @param cato
+   */
+  hasOverride(cato: ClassifiedArbitraryTypedObject): boolean {
+    console.log(cato.type, this.config?.overrides?.hasOwnProperty(cato.type));
+    return !!(this.config?.overrides?.hasOwnProperty(cato.type) || this.config?.overrides?.types?.hasOwnProperty(cato.type));
+  }
+
+  /**
+   *
+   * @param cato
+   */
+  getOverride(cato: ClassifiedArbitraryTypedObject): CatoRenderFunction {
+    let override: CatoRenderFunction | null = null;
+    if (this.config?.overrides) {
+      let o = this.config?.overrides[cato.type as keyof PortableTextConfigInterfaceOverrides];
+      override = typeof o === 'function' ? o : null;
+      if (!override && this.config?.overrides?.types) {
+        let to = this.config?.overrides?.types;
+
+        to?.forEach((ct) => {
+          if (ct.type === cato.type && ct.rendererFunction) {
+            o = ct.rendererFunction;
+          }
+        });
+
+        override = typeof o === 'function' ? o : null;
+      }
+    }
+
+    if (override) {
+      return override;
+    }
+
+    throw new Error('Couldn\'t find override. Did you forget to call \'hasOverride()\'?');
   }
 
   /**

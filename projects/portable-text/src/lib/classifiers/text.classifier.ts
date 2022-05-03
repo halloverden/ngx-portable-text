@@ -16,7 +16,7 @@ export class TextClassifier implements ClassifierInterface {
    */
   classify(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject {
     const firstNode = nodes.splice(0, 1)[0];
-    return (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.Paragraph)).addNode(firstNode);
+    return (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.paragraph)).addNode(firstNode);
   }
 
   /**

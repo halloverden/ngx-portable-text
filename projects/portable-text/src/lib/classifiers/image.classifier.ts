@@ -16,7 +16,7 @@ export class ImageClassifier implements ClassifierInterface {
    */
   classify(nodes: ArbitraryTypedObject[]): ClassifiedArbitraryTypedObject {
     const firstNode = nodes.splice(0, 1)[0];
-    return (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.Image)).addNode(firstNode);
+    return (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.image)).addNode(firstNode);
   }
 
   /**

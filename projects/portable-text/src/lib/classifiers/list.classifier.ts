@@ -40,9 +40,9 @@ export class ListClassifier implements ClassifierInterface {
     let l = new ClassifiedArbitraryTypedObject();
 
     if (this.isOrderedListNode(firstNode['listItem'])) {
-      l.type = ClassifiedArbitraryTypedObjectType.OrderedList;
+      l.type = ClassifiedArbitraryTypedObjectType.orderedList;
     } else if (this.isUnorderedListNode(firstNode['listItem'])) {
-      l.type = ClassifiedArbitraryTypedObjectType.UnorderedList;
+      l.type = ClassifiedArbitraryTypedObjectType.unorderedList;
     }
 
     l.setClassifiedNodes(this.classifyListItems(nodes));
@@ -100,7 +100,7 @@ export class ListClassifier implements ClassifierInterface {
     const n = [];
 
     while (null === previousNode || this.isSameType(nextNode, previousNode) || i > nodes.length) {
-      let classifiedListNode = (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.ListItem)).addNode(nextNode).setNode(nextNode);
+      let classifiedListNode = (new ClassifiedArbitraryTypedObject(ClassifiedArbitraryTypedObjectType.listItem)).addNode(nextNode).setNode(nextNode);
       n.push(classifiedListNode);
       previousNode = nextNode;
       nextNode = nodes[++i];
